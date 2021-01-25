@@ -43,7 +43,13 @@ function Register(props) {
    axios.post("http://127.0.0.1:8000/auth/users/",value).then(
        res => {
         console.log(res)
-        props.changeComponent("Home")
+        axios.post("http://127.0.0.1:8000/api/token/",value).then(
+          res => {
+           localStorage.setItem("token",res.data.access)
+           localStorage.setItem("username",value.username)
+           props.changeComponent("Home")
+          }
+      )
        }
    )
   }

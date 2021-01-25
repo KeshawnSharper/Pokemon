@@ -25,10 +25,10 @@ class TestView(APIView):
         data = []
         exsist = False
         for x in qs:
+            if PostSerializer(x).data['username'] == request.data['username']:
+                data.append(PostSerializer(x).data)
             if PostSerializer(x).data['username'] == request.data['username'] and PostSerializer(x).data['name'] == request.data['name'] :
-                exsist = True
-            
-            data.append(PostSerializer(x).data)
+                exsist = True   
         if exsist == False:
             serializer = PostSerializer(data=request.data)
             if serializer.is_valid():
@@ -44,7 +44,8 @@ class TestView(APIView):
             if PostSerializer(x).data['username'] == kwargs['username'] and PostSerializer(x).data['name'] == kwargs['name'] :
                 exsist = True
             else:
-                data.append(PostSerializer(x).data)
+                if PostSerializer(x).data['username'] == kwargs['username']:
+                    data.append(PostSerializer(x).data)
         if exsist == True:
             Post.objects.get(name=kwargs['name'],username=kwargs['username']).delete()
         return Response(data)
