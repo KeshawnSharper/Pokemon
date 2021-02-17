@@ -16,15 +16,16 @@ ReactJS/JavaScript/Html/CSS/Python/Django
 No bugs 
 
 # How to use it:
-clone repo
-First, open 2 terminal windows 
+1. clone repo
+2. change directory to Pokemon
+3. open 2 terminal windows 
 Front-end:
-change to the pokemon directory
-install yarn and run yarn start.
+4a. change to the pokemon directory
+5a. install yarn and run yarn start.
 
 Backend (for Mac):
-run virtualenv env 
-run source env/bin/activate
-change directory to pokemon_api
-run pip install django,django-cors-headers,djangorestframework,django-rest-auth,django-allauth,djoser,
-run python manage.py runserver 
+4b. run virtualenv env 
+5b. run source env/bin/activate
+6b. change directory to pokemon_api
+7b. run pip install django,django-cors-headers,djangorestframework,django-rest-auth,django-allauth,djoser,
+8b. run python manage.py runserver 
