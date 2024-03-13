@@ -6,6 +6,8 @@ import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import config from '../amplifyconfiguration.json';
 import  { Navigate } from 'react-router-dom'
+import { Amplify } from 'aws-amplify';
+
 Amplify.configure(config)
 
 const useStyles = makeStyles((theme) => ({
