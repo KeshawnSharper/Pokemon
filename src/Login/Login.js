@@ -2,6 +2,11 @@ import React, { useEffect,useState } from "react";
 import axios from "axios";
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import config from '../amplifyconfiguration.json';
+import  { Navigate } from 'react-router-dom'
+Amplify.configure(config)
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,13 +16,15 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-function Login(props) {
+function Login({ signOut, user }) {
 
   useEffect(() => {
   
+    console.log(user)
+   
+    localStorage.setItem("user",JSON.stringify(user))
     
-    
-  }, []);
+  }, [user]);
   const [value,setValue] = useState({
     username:"",
     password:""
@@ -35,7 +42,7 @@ function Login(props) {
        res => {
         localStorage.setItem("token",res.data.access)
         localStorage.setItem("username",value.username)
-        props.changeComponent("Home")
+        // props.changeComponent("Home")
        }
    )
   }
@@ -43,6 +50,8 @@ function Login(props) {
   const classes = useStyles();
 
   return (
+    <>
+    {!user ? 
     <div className={`form`}>
      <h2> Login </h2> 
     <form className={classes.root} noValidate autoComplete="off" onSubmit={(e) => handleSubmit(e)}>
@@ -51,11 +60,21 @@ function Login(props) {
       <TextField value={value.password} id="outlined-basic" label="Password" variant="outlined" onChange={(e) => handleChange(e)} name="password" />
       <button type="submit"> Login </button>
     </form>
-    <button onClick={() => props.changeComponent("Register")}> Register Here</button>
+    {/* <button onClick={() => props.changeComponent("Register")}> Register Here</button> */}
+
+    <div>
+    <Heading level={1}>Hello {user.username}</Heading>
+    <Button onClick={signOut}>Sign out</Button>
+    <h2>Amplify Todos</h2>
+    ...
+  </div>
     </div>
+    : 
+    <Navigate to='/home'  />}
+    </>
   )
 }
 
 
 
-export default Login
+export default withAuthenticator(Login)

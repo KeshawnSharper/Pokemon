@@ -1,17 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Characters from "./Characters/Characters";
 import LikedCharacters from "./LikedCharacters/LikedCharacters";
 import "./Home.css";
-const Home = (props) => {
+import { Navigate } from "react-router-dom";
+const Home = ({user,signOut}) => {
   const [search, SetSearch] = useState(false);
   const [component, setComponent] = useState(true);
+  const [pressed,setPressed] = useState(false)
+  useEffect(() => {
+
+  },[pressed])
   const click = () => {
     SetSearch(true);
   };
   return (
+    <>{
+      pressed ? 
+      <Navigate to={"/"} />
+      :
     <>
   <button onClick={() => setComponent(!component)}> {!component ? "Search Cards" : " Your Cards"}</button>
-
+<button onClick={() => {
+  localStorage.clear()
+  setPressed(true)
+}}>Sign Out</button>
     {
       component
       ?
@@ -125,7 +137,7 @@ const Home = (props) => {
     <LikedCharacters />
     }
     
-    </>
+  </> } </>
   );
 };
 export default Home;

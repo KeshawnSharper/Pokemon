@@ -1,18 +1,25 @@
 import React, { useEffect,useState } from "react";
+import Protected from './Protected'
 import axios from "axios";
 import "./styles.css";
 import Characters from "./Characters/Characters";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Amplify } from 'aws-amplify';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 import { getCharacters,getLiked } from "./Redux/actions";
 import { connect } from "react-redux";
 import Home from "./Home";
 import Cart from "./Cart";
 import Login from "./Login/Login";
 import Register from "./Register";
-function App(props) {
+
+function App({ signOut, user,getCharacters,getLiked }) {
   useEffect(() => {
-    props.getCharacters();
-    props.getLiked();
+    getCharacters();
+    getLiked();
     // axios
     // // .get(`http://127.0.0.1:8000/`)
     // .then((res) => {
@@ -27,27 +34,20 @@ function App(props) {
   console.log(component)
   return (
     <>
-      {!props.loading && props.characters.length > 0 ? (
-        
-       <>
-       {
-        //  component === "Login" && !localStorage.getItem("username") 
-        //  ?
-        //  <Login changeComponent={changeComponent}/>
-        //  :
-        //  component === "Register" && !localStorage.getItem("username")
-        //  ?
-        //  <Register changeComponent={changeComponent}/>
-        //  :
-         <Home />
+    <BrowserRouter>
+      <Routes>
+      <Route path="/" element={
+           
+             <Login user={user} signOut={signOut} />
+         } />
+        <Route path="/home" element={
+            <Protected>
+             <Home user={user} signOut={signOut}/>
+            </Protected>
+         } />
 
-       }
-        </>
-      ) : 
-      
-      (
-        <></>
-      )}
+      </Routes>
+      </BrowserRouter>
     </>
   );
 }

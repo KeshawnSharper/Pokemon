@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-pokemon1-dev-105719-authRole",
+      "UnauthRoleArn": "arn:aws:iam::975050149380:role/amplify-pokemon1-dev-105719-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::975050149380:role/amplify-pokemon1-dev-105719-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-pokemon1-dev-105719-deployment",
+      "UnauthRoleName": "amplify-pokemon1-dev-105719-unauthRole",
+      "StackName": "amplify-pokemon1-dev-105719",
+      "StackId": "arn:aws:cloudformation:us-east-2:975050149380:stack/amplify-pokemon1-dev-105719/ff66e660-e149-11ee-8a61-023df1471fb1",
+      "AmplifyAppId": "d3vuow239xnvr5"
+    },
+    "categories": {
+      "auth": {
+        "pokemon17fb65973": {}
+      }
+    }
+  }
+}
