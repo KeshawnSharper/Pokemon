@@ -1,16 +1,18 @@
 import axios from "axios";
-
+let url = "https://9513hull99.execute-api.us-east-2.amazonaws.com/default/pokemon"
 export function getCharacters() {
   return (dispatch) => {
     dispatch({
       type: "GET_CHARACTERS"
     });
     axios
-      .get(`https://pokeapi.co/api/v2/pokemon?limit=1118`)
+      .get(url)
       .then((res) => {
+        console.log(res)
+
         dispatch({
           type: "GET_CHARACTERS_SUCCESS",
-          characters: res.data.results
+          characters: res.data.pokemon.results
         });
       })
       .catch((err) => {

@@ -31,14 +31,14 @@ function App(props) {
         
        <>
        {
-         component === "Login" && !localStorage.getItem("username") 
-         ?
-         <Login changeComponent={changeComponent}/>
-         :
-         component === "Register" && !localStorage.getItem("username")
-         ?
-         <Register changeComponent={changeComponent}/>
-         :
+        //  component === "Login" && !localStorage.getItem("username") 
+        //  ?
+        //  <Login changeComponent={changeComponent}/>
+        //  :
+        //  component === "Register" && !localStorage.getItem("username")
+        //  ?
+        //  <Register changeComponent={changeComponent}/>
+        //  :
          <Home />
 
        }

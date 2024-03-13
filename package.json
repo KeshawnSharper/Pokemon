@@ -7,6 +7,7 @@
     "starter"
   ],
   "main": "src/index.js",
+  "private": true,
   "dependencies": {
     "@material-ui/core": "4.11.2",
     "@material-ui/icons": "^4.11.2",
@@ -25,8 +26,9 @@
     "typescript": "3.8.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "production": "cross-env NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider  node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
