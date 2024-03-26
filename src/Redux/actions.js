@@ -1,5 +1,6 @@
 import axios from "axios";
-let url = "https://9513hull99.execute-api.us-east-2.amazonaws.com/default/pokemon"
+let url = "https://pokeapi.co/api/v2/pokemon?limit=1118"
+let username = JSON.parse(localStorage.getItem("user")).username
 export function getCharacters() {
   return (dispatch) => {
     dispatch({
@@ -8,12 +9,12 @@ export function getCharacters() {
     axios
       .get(url)
       .then((res) => {
-        console.log(res)
+        console.log(res.data.results)
 
         dispatch({
           type: "GET_CHARACTERS_SUCCESS",
-          characters: res.data.pokemon.results
-        });
+          characters: res.data.pokemon ? res.data.pokemon.results : res.data.results
+        })
       })
       .catch((err) => {
         dispatch({ type: "GET_CHARACTERS_FAILED", characters: err });
@@ -64,17 +65,18 @@ return (dispatch) => {
   dispatch({
     type: "GET_LIKED"
   });
- axios.get(`http://127.0.0.1:8000/pokemon/${localStorage.getItem("username")}`)
+ axios.get(`http://localhost:5001/pokemon/${username}`)
     .then((res) => {
+      console.log(res)
       let obj = {}
-      res.data.map(
+      res.data.pokemon.map(
         character => (
           obj[character.name] = true
         )
       )
       dispatch({
         type: "GET_LIKED_SUCCESS",
-        likedCharacters: res.data,
+        likedCharacters: res.data.pokemon,
         isLiked:obj
       });
     })
@@ -89,7 +91,7 @@ export function addLiked(pokemon) {
     dispatch({
       type: "ADD_LIKED"
     });
-   axios.post(`http://127.0.0.1:8000/pokemon`,pokemon)
+   axios.post(`http://localhost:5001/pokemon`,pokemon)
       .then((res) => {
         dispatch({
           type: "ADD_LIKED_SUCCESS",
@@ -108,11 +110,11 @@ export function addLiked(pokemon) {
       dispatch({
         type: "DELETE_LIKED"
       });
-     axios.delete(`http://127.0.0.1:8000/pokemon/${pokemon.username}/${pokemon.name}`)
+     axios.delete(`http://localhost:5001/pokemon/${pokemon.id}`)
         .then((res) => {
           dispatch({
             type: "DELETE_LIKED_SUCCESS",
-            likedCharacters: res.data,
+            likedCharacters: res.data.pokemon,
             name: pokemon.name
           });
         })

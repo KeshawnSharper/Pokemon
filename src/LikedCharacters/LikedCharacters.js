@@ -62,6 +62,7 @@ class LikedCharacters extends Component {
                 className={`cardBody ${
                   character.type
                 }`}
+                style={{"margin-bottom":"500px"}}
               >
                 <div className="header">
                   <p className="basic">Basic Pokémon</p>
@@ -158,17 +159,16 @@ class LikedCharacters extends Component {
                 </div>
                 <div className="footer">
                   <div>
-                    <strong>Illus.MitsuhiroArica</strong>
-                    ©1995,96,98,99NintendoCreaturesGAMEFREAK©1999Wizards
-                    <strong>63/102●</strong>
+                  <i class="fa fa-heart" style={{color:"red"}} onClick={() => this.props.deleteLiked({
+                    name: character.name,
+                    id: this.props.likedCharacters.filter(i => i.name === character.name).length === 1 ? this.props.likedCharacters.filter(i => i.name === character.name)[0].id : null
+                  }
+                  )}/>
                   </div>
                 </div>
                 
                   
-                  <i class="fa fa-heart" style={{color:"red"}} onClick={() => this.props.deleteLiked({
-                    username:localStorage.getItem("username"),
-                    name:character.name
-                  })}/>
+                 
                   
 
                 
@@ -195,7 +195,7 @@ function mapStateToProps(state) {
   return {
     character: state.character,
     characters: state.characters,
-    likedCharacters: state.likedCharacters,
+    likedCharacters: state.likedCharacters.pokemon ? state.likedCharacters.pokemon : state.likedCharacters,
 
   };
 }

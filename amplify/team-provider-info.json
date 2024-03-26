@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "pokemon17fb65973": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d3vuow239xnvr5",
+          "type": "manual"
+        }
       }
     }
   }

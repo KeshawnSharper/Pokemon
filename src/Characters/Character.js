@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 function Character(props) {
   const { name, url, loading, character } = props;
   console.log("hey", props.isLiked[`${character.name}`]);
+  console.log(JSON.parse(localStorage.getItem("user")).username);
   const background = {
     water:
       "https://res.cloudinary.com/di449masi/image/upload/v1610330429/d3inhf4-271fd765-dfec-44fc-9985-3538b0bceb36.png_gosjkc.png"
@@ -179,20 +180,15 @@ function Character(props) {
                   </p>
                 </div>
                 <div className="footer">
-                  <div>
-                    <strong>Illus.MitsuhiroArica</strong>
-                    ©1995,96,98,99NintendoCreaturesGAMEFREAK©1999Wizards
-                    <strong>63/102●</strong>
-                  </div>
-                </div>
                 {
                   props.isLiked[`${character.name}`] ? 
-                  <i class="fa fa-heart" style={{color:"red"}} onClick={() => props.deleteLiked({
-                    username:localStorage.getItem("username"),
-                    name:character.name
-                  })}/>
+                  <i class="fa fa-heart fa-xl" style={{color:"red"}} onClick={() => props.deleteLiked({
+                    name: character.name,
+                    id: props.likedCharacters.filter(i => i.name === character.name).length === 1 ? props.likedCharacters.filter(i => i.name === character.name)[0].id : null
+                  }
+                  )}/>
                   :
-<i class="fa fa-heart" style={{color:"white"}} onClick={() => props.addLiked({
+<i class="fa fa-heart fa-xl" style={{color:"white"}} onClick={() => props.addLiked({
                   img:character.sprites ? character.sprites.front_default : "",
                   move_1_name:props.moves[0]   ? props.moves[0].name : null,
                   move_1_power:props.moves[0] && props.moves[0].power != null ? props.moves[0].power : 0,
@@ -202,11 +198,14 @@ function Character(props) {
                   move_2_text:props.moves[1] ? props.moves[1].flavor_text_entries[1].flavor_text: null,
                   type: character.types ? character.types[0].type.name : "",
                   base_experience:character.base_experience,
+                  pokemon_id:character.id,
                   name:character.name,
-                  username:localStorage.getItem("username")
+                  username:JSON.parse(localStorage.getItem("user")).username
                   })}/>
 
                 }
+                </div>
+                
                 
 
               </div>
@@ -245,6 +244,7 @@ function mapStateToProps(state) {
     moves: state.moves,
     character: state.character,
     isLiked: state.isLiked,
+    likedCharacters:state.likedCharacters.pokemon ? state.likedCharacters.pokemon : state.likedCharacters
   };
 }
 const mapDispatchToProps = (dispatch) => {

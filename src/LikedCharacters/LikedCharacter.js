@@ -51,7 +51,7 @@ function Character(props) {
   const handleOpen = () => {
     setOpen(true);
     props.getCharacter(url);
-    console.log("hey", character);
+    console.log("liked", character);
     // props.getMove1(character.moves[0].move.url);
     // props.getMove2(character.moves[0].move.url);
   };
@@ -179,18 +179,11 @@ function Character(props) {
                   </p>
                 </div>
                 <div className="footer">
-                  <div>
-                    <strong>Illus.MitsuhiroArica</strong>
-                    ©1995,96,98,99NintendoCreaturesGAMEFREAK©1999Wizards
-                    <strong>63/102●</strong>
-                  </div>
-                </div>
                 {
                   props.isLiked[`${character.name}`] ? 
-                  <i class="fa fa-heart" style={{color:"red"}} onClick={() => props.deleteLiked({
-                    username:localStorage.getItem("username"),
-                    name:character.name
-                  })}/>
+                  <i class="fa fa-heart" style={{color:"red"}} onClick={() => props.deleteLiked(
+                   props.likedCharacters.filter(i => i.name === character.name)[0].id
+                  )}/>
                   :
 <i class="fa fa-heart" style={{color:"white"}} onClick={() => props.addLiked({
                   img:character.sprites ? character.sprites.front_default : "",
@@ -203,10 +196,13 @@ function Character(props) {
                   type: character.types ? character.types[0].type.name : "",
                   base_experience:character.base_experience,
                   name:character.name,
-                  username:localStorage.getItem("username")
+                  pokemon_id:character.id,
+                  username:JSON.parse(localStorage.getItem("user")).username
                   })}/>
 
                 }
+                </div>
+               
                 
 
               </div>
@@ -243,6 +239,7 @@ function mapStateToProps(state) {
     moves: state.moves,
     character: state.character,
     isLiked: state.isLiked,
+    likedCharacters: state.likedCharacters.pokemon ? state.likedCharacters.pokemon : state.likedCharacters
   };
 }
 const mapDispatchToProps = (dispatch) => {
@@ -253,9 +250,10 @@ const mapDispatchToProps = (dispatch) => {
     addLiked: (character) => {
       dispatch(addLiked(character));
     },
-    deleteLiked: (character) => {
-      dispatch(deleteLiked(character));
+    deleteLiked: (id) => {
+      dispatch(deleteLiked(id));
     },
+    
   }
 };
 
