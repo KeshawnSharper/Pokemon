@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import Characters from "./Characters/Characters";
 import LikedCharacters from "./LikedCharacters/LikedCharacters";
 import "./Home.css";
+import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
-const Home = ({user,signOut}) => {
+import { getLiked } from "./Redux/actions";
+const Home = ({user,signOut,getLiked}) => {
   const [search, SetSearch] = useState(false);
   const [component, setComponent] = useState(true);
   const [pressed,setPressed] = useState(false)
   useEffect(() => {
-
+    getLiked(JSON.parse(localStorage.getItem("user")))
   },[pressed])
   const click = () => {
     SetSearch(true);
@@ -140,4 +142,17 @@ const Home = ({user,signOut}) => {
   </> } </>
   );
 };
-export default Home;
+function mapStateToProps(state) {
+  return {
+    characters: state.characters
+  };
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getLiked: (user) => {
+      dispatch(getLiked(user));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

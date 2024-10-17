@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MuiAlert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import { connect } from "react-redux";
-import { getCharacter, getMove1, getMove2, addLiked,deleteLiked} from "../Redux/actions";
+import { getCharacter, getMove1, getMove2, addLiked,deleteLiked, getLiked} from "../Redux/actions";
 import "./Character.css";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Character(props) {
+  useEffect(() => {
+    getLiked(JSON.parse(localStorage.getItem("user")).username)
+  },[])
   const { name, url, loading, character } = props;
   console.log("hey", props.isLiked[`${character.name}`]);
   console.log(JSON.parse(localStorage.getItem("user")).username);

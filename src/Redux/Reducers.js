@@ -83,7 +83,7 @@ export const StoreReducer = (state = initState, action) => {
         console.log(action.likedCharacters)
         return {
           ...state,
-          likedCharacters: action.likedCharacters,
+          likedCharacters: action.pokemon,
           isLiked: {...state.isLiked,[action.isLiked]:true},
           loading: false
         };

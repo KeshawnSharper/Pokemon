@@ -19,7 +19,6 @@ import Register from "./Register";
 function App({ signOut, user,getCharacters,getLiked }) {
   useEffect(() => {
     getCharacters();
-    getLiked();
     // axios
     // // .get(`http://127.0.0.1:8000/`)
     // .then((res) => {
@@ -61,9 +60,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getCharacters: () => {
       dispatch(getCharacters());
-    },
-    getLiked: () => {
-      dispatch(getLiked());
     }
   };
 };

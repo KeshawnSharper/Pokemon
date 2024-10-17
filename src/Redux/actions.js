@@ -1,6 +1,5 @@
 import axios from "axios";
 let url = "https://pokeapi.co/api/v2/pokemon?limit=1118"
-let username = JSON.parse(localStorage.getItem("user")).username
 export function getCharacters() {
   return (dispatch) => {
     dispatch({
@@ -60,12 +59,12 @@ export function getMove2(url, dispatch) {
     });
   });
 }
-export function getLiked() {
+export function getLiked(user) {
 return (dispatch) => {
   dispatch({
     type: "GET_LIKED"
   });
- axios.get(`http://localhost:5001/pokemon/${username}`)
+ axios.get(`http://localhost:5000/pokemon-e2872/us-central1/helloWorld/pokemon/${user.username}`)
     .then((res) => {
       console.log(res)
       let obj = {}
@@ -91,11 +90,11 @@ export function addLiked(pokemon) {
     dispatch({
       type: "ADD_LIKED"
     });
-   axios.post(`http://localhost:5001/pokemon`,pokemon)
+   axios.post(`http://localhost:5000/pokemon-e2872/us-central1/helloWorld/pokemon`,pokemon)
       .then((res) => {
         dispatch({
           type: "ADD_LIKED_SUCCESS",
-          likedCharacters: res.data,
+          pokemon: res.data.pokemon,
           isLiked:pokemon.name
         });
       })
@@ -110,7 +109,7 @@ export function addLiked(pokemon) {
       dispatch({
         type: "DELETE_LIKED"
       });
-     axios.delete(`http://localhost:5001/pokemon/${pokemon.id}`)
+     axios.delete(`http://localhost:5000/pokemon-e2872/us-central1/helloWorld/pokemon/${pokemon.id}`)
         .then((res) => {
           dispatch({
             type: "DELETE_LIKED_SUCCESS",

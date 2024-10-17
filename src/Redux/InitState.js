@@ -4,6 +4,7 @@ const initState = {
   character: {},
   moves: [],
   likedCharacters: [],
-  isLiked: {}
+  isLiked: {},
+  user:{}
 };
 export default initState;
