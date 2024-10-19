@@ -64,7 +64,7 @@ return (dispatch) => {
   dispatch({
     type: "GET_LIKED"
   });
- axios.get(`http://localhost:5000/pokemon-e2872/us-central1/helloWorld/pokemon/${user.username}`)
+ axios.get(`https://helloworld-pa2uv36pdq-uc.a.run.app/pokemon/${user.username}`)
     .then((res) => {
       console.log(res)
       let obj = {}
@@ -90,7 +90,7 @@ export function addLiked(pokemon) {
     dispatch({
       type: "ADD_LIKED"
     });
-   axios.post(`http://localhost:5000/pokemon-e2872/us-central1/helloWorld/pokemon`,pokemon)
+   axios.post(`https://helloworld-pa2uv36pdq-uc.a.run.app/pokemon`,pokemon)
       .then((res) => {
         dispatch({
           type: "ADD_LIKED_SUCCESS",
@@ -109,7 +109,7 @@ export function addLiked(pokemon) {
       dispatch({
         type: "DELETE_LIKED"
       });
-     axios.delete(`http://localhost:5000/pokemon-e2872/us-central1/helloWorld/pokemon/${pokemon.id}`)
+     axios.delete(`https://helloworld-pa2uv36pdq-uc.a.run.app/pokemon/${pokemon.id}`)
         .then((res) => {
           dispatch({
             type: "DELETE_LIKED_SUCCESS",
